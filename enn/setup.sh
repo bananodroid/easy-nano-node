@@ -48,10 +48,10 @@ if [ -f /opt/easy-nano-node/init ]; then
 else
 
   echo "== Creating wallet"
-  wallet=$(docker exec enn_nanonode_1 /usr/bin/rai_node --wallet_create)
+  wallet=$(docker exec enn_nanonode_1 /usr/bin/nano_node --wallet_create)
 
   echo "== Creating account"
-  account=$(docker exec enn_nanonode_1 /usr/bin/rai_node --account_create --wallet=$wallet | cut -d ' ' -f2)
+  account=$(docker exec enn_nanonode_1 /usr/bin/nano_node --account_create --wallet=$wallet | cut -d ' ' -f2)
 
   echo "== Modifying the monitor config"
 
@@ -68,7 +68,7 @@ else
   sed -i -e 's#\[::1\]#enn_nanonode_1#g' ~/nanoNodeMonitor/config.php
 
   echo "== Disabling RPC logging"
-  sed -i -e 's#"log_rpc": "true"#"log_rpc": "false"#g' ~/RaiBlocks/config.json
+  sed -i -e 's#"log_rpc": "true"#"log_rpc": "false"#g' ~/Nano/config.json
 
   echo "== Opening Nano Node Port"
   sudo ufw allow 7075
